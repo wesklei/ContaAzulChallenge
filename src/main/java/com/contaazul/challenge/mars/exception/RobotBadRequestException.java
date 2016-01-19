@@ -11,5 +11,5 @@ import javax.ws.rs.BadRequestException;
  *
  * @author Wesklei Migliorini
  */
-public class RobotBadRequestException extends BadRequestException {
+public class RobotBadRequestException extends RuntimeException {
 }

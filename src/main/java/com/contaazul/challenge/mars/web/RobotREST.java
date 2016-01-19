@@ -5,10 +5,11 @@
  */
 package com.contaazul.challenge.mars.web;
 
+import com.contaazul.challenge.mars.business.RobotMarsOperator;
 import com.contaazul.challenge.mars.business.RobotOperator;
-import com.contaazul.challenge.mars.exception.RobotBadRequestException;
 import com.contaazul.challenge.mars.model.Robot;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,22 +28,21 @@ public class RobotREST {
 
     public static final Logger logger = Logger.getLogger(RobotREST.class.getCanonicalName());
 
+    @Inject
+    private RobotOperator robotOperator;
+
     /**
      * Receive instructions to simulate mars robot move behavior
      *
-     * @param instruction the command
-     * @return The final position after instruction processed
+     * @param instructions the commands
+     * @return The final position after instruction processed or error
      */
     @POST
-    @Path("{instruction}")
-    public Response instruction(@PathParam("instruction") String instruction) {
-        logger.info("Instruction received: " + instruction);
-        
-        Robot robot = new Robot();
-        RobotOperator robotOperator = new RobotOperator(robot);
-        robotOperator.operate(instruction);
-        
-        return Response.ok(robot,MediaType.TEXT_PLAIN_TYPE).build();        
+    @Path("{instructions}")
+    public Response instructions(@PathParam("instructions") String instructions) {
+        logger.info("Instruction received: " + instructions);
+
+        return Response.ok(robotOperator.operate(instructions), MediaType.TEXT_PLAIN_TYPE).build();
     }
 
 }
