@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contaazul.challenge.mars.web;
 
 import com.contaazul.challenge.mars.exception.RobotBadRequestException;
@@ -26,6 +21,8 @@ public class RobotExceptionHandler implements
 
     @Override
     public Response toResponse(final RobotBadRequestException exception) {
-        return Response.status(Status.BAD_REQUEST).entity(new ErrorMessage(ERROR_CODE, ERROR_BAD_REQUEST)).type(MediaType.TEXT_PLAIN).build();
+
+        ErrorMessage defaultErrorMessage = new ErrorMessage(ERROR_CODE, ERROR_BAD_REQUEST);
+        return Response.status(Status.BAD_REQUEST).entity(defaultErrorMessage).type(MediaType.TEXT_PLAIN).build();
     }
 }

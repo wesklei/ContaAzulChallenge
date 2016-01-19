@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contaazul.challenge.mars.web;
 
-import com.contaazul.challenge.mars.business.RobotMarsOperator;
 import com.contaazul.challenge.mars.business.RobotOperator;
 import com.contaazul.challenge.mars.model.Robot;
 import java.util.logging.Logger;
@@ -42,7 +36,8 @@ public class RobotREST {
     public Response instructions(@PathParam("instructions") String instructions) {
         logger.info("Instruction received: " + instructions);
 
-        return Response.ok(robotOperator.operate(instructions), MediaType.TEXT_PLAIN_TYPE).build();
+        Robot robotOuput = robotOperator.operate(instructions);
+        return Response.ok(robotOuput, MediaType.TEXT_PLAIN_TYPE).build();
     }
 
 }
